@@ -17,7 +17,7 @@ public class aceptaelreto143 {
 				for(i=cantidad-1;i>=0;--i) {
 					tortitas.add(cantidad--);
 				}
-				
+			//Asignar cantidad de tortitas	
 			tam=tortitas.size();
 			for (i=0;i<tam;++i) {
 				System.out.print(tortitas.get(i)+" ");
@@ -28,16 +28,18 @@ public class aceptaelreto143 {
 				input=scan1.nextInt();
 				input2=input;
 				sobras=tortitas.size()-input;
+				//Pasamos las tortitas atras
 				for(f=0;f<sobras;++f) {
 					tortitas2.add(tortitas.get(input2));
 					input2++;
 				}
 				tam=tortitas2.size();
 				h=input-1;
-				//asignar la vuelta
+				//Ponemos las tortitas que damos la vuelta
 				for(f=tam;f<tortitas.size();++f) {
 					tortitas2.add(tortitas.get(h--));
 				}
+				//asignar al ArrayList principal
 				tam=tortitas.size();
 				for (f=0;f<tam;++f) {
 					tortitas.set(f, tortitas2.get(f));
