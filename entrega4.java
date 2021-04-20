@@ -47,12 +47,9 @@ class serie{
 	}
 	
 	public serie() {
-		this.titulo=" ";
 		this.numero_cap=10;
-		this.genero='H';
-		this.guionista = "";
+		this.genero='D';
 		Arrays.fill(this.actores, "");
-		this.precio=0;
 	}
 	
 	public serie(String titulo,String guionista) {
@@ -79,9 +76,10 @@ public class entrega4 {
 		String [] actores =  new String [5];
 		Arrays.fill(actores, "");
 		serie s_1 = new serie();
+		
+		//usar gets para ver valores por defecto, si hay valores por defecto pedimos el dato 
 		serie s_2 = new serie("Kung Fu Panda","David");
 		serie s_3 = new serie ("Shin Chan",(short)8,'F',"Pepe",actores,(short)11);
-		
 		
 	}
 }
