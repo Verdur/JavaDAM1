@@ -39,6 +39,7 @@ class serie{
 	public String[] getActores() {
 		return actores;
 	}
+	//sobrecarga de metodo por si quiero acceder a una posicion concreta
 	public String getActores(int index) {
 		return actores[index];
 	}
@@ -74,6 +75,12 @@ class serie{
 		this.precio = precio;
 	}
 	
+	/*public String toString() {
+		return "serie [Titulo=" + titulo + ", numero_cap=" + numero_cap + ", genero="
+				+ genero + ", guionista=" + guionista + ", actores=" + Arrays.toString(actores) + ", precio=" + precio
+				+ "]";
+	}*/
+	
 	
 }
 
@@ -81,7 +88,7 @@ public class entrega4 {
 	public static void main(String[] args) {
 		String [] actores =  new String [serie.TAM];
 		
-		Arrays.fill(actores, "");
+		Arrays.fill(actores, "aa");
 		serie s_1 = new serie();
 		mirarNulos(s_1);
 		serie s_2 = new serie("Kung Fu Panda","David");
@@ -96,10 +103,10 @@ public class entrega4 {
 	
 	static void imprimirObjeto(serie objeto) {
 		System.out.println("Titulo : "+objeto.getTitulo()+" Genero :  "+objeto.getGenero()+" Guionista : "+objeto.getGuionista()+" Capitulos : "+objeto.getNumero_cap()+" Precio : "+objeto.getPrecio());
-		System.out.print("Actores : ");
-		for (int i=0;i<objeto.getActores().length;++i) {
+		System.out.print("Actores : "+Arrays.toString(objeto.getActores()));
+		/*for (int i=0;i<objeto.getActores().length;++i) {
 			System.out.print(objeto.getActores(i)+" ");
-		}
+		}*/
 		System.out.println();
 	}
 	
