@@ -88,7 +88,7 @@ public class entrega4 {
 	public static void main(String[] args) {
 		String [] actores =  new String [serie.TAM];
 		
-		Arrays.fill(actores, "aa");
+		Arrays.fill(actores, "");
 		serie s_1 = new serie();
 		mirarNulos(s_1);
 		serie s_2 = new serie("Kung Fu Panda","David");
