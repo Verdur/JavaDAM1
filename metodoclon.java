@@ -14,9 +14,9 @@ class prueba{
 		this.num = num;
 	}
 	
-	public prueba clon(prueba obj){
+	public prueba clon(){
 		
-		prueba clon = new prueba(obj.getNum());
+		prueba clon = new prueba(num);
 		
 		return clon;
 		
@@ -30,7 +30,9 @@ class prueba{
 public class metodoclon {
 	public static void main(String[] args) {
 		prueba test = new prueba(9);
-		modificar(test.clon(test));
+		modificar(test.clon());
+		System.out.println(test);
+		modificar(test.clon());
 		System.out.println(test);
 	}
 	
