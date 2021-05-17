@@ -20,15 +20,21 @@ public class arraysCopyOf {
 			System.out.println(arr1[i]);
 			}
 			*/
+		
+		//Declaro un array de 1 posicion
 		arr1 = new String[1];
 		i=1;
+		//creo un bucle do while para ir realizando la peticion de datos
 		do {
 			input=sc.nextLine();
+			//aumento en 1 la cantidad del array
 			arr1 = Arrays.copyOf(arr1, i);
+			//introduzco en la posicion -1 ya que el array empieza en 0
 			arr1[i-1] = input;
+			//aumentamos la i para la siguiente interaccion 
 			++i;
 		}while(input!="");
-		
+		//lectura del array.i8
 		for(i = 0;i<arr1.length;++i) {
 			System.out.println(arr1[i]);
 			}
