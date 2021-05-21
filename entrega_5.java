@@ -7,15 +7,18 @@ import java.util.Scanner;
 
 class persona{
 	private static final char DEFAULTSEXO = 'M';
-	public final short minIMC = 20;
-	public final short maxIMC = 25;
+	private final short minIMC = 20;
+	private final short maxIMC = 25;
+	public final static short infPeso = -1;
+	public final static short masPeso = 1;
+	public final static short buePeso = 0;
 	private int id;
 	private String nombre;
 	private GregorianCalendar fecha_nacimiento = new GregorianCalendar();
 	private	char sexo;
 	private float altura;
 	private float peso;
-	private String [] aficiones = new String[5];
+	private String [] aficiones = new String[1];
 	public int getId() {
 		return id;
 	}
@@ -49,8 +52,11 @@ class persona{
 	public String[] getAficiones() {
 		return aficiones;
 	}
+	public String getAficiones(int index) {
+		return aficiones[index];
+	}
 	public void setAficiones(String[] aficiones) {
-		System.arraycopy(aficiones, 0, this.aficiones,0,this.aficiones.length);
+		this.aficiones=Arrays.copyOf(aficiones, aficiones.length);
 	}
 	
 	public float getPeso() {
@@ -60,22 +66,27 @@ class persona{
 		this.peso = peso;
 	}
 	persona (){
+		this.id= generarIdentificador();
 		this.sexo=DEFAULTSEXO;
+		Arrays.fill(aficiones, "");
 	}
 	public persona(String nombre, GregorianCalendar fecha_nacimiento, char sexo) {
+		this ();
 		this.nombre = nombre;
 		this.fecha_nacimiento = fecha_nacimiento;
 		this.sexo = sexo;
+		Arrays.fill(aficiones, "");
 	}
 	
 	public persona(String nombre, GregorianCalendar fecha_nacimiento, char sexo, float altura, float peso,
 			String[] aficiones) {
+		this.id= generarIdentificador();
 		this.nombre = nombre;
 		this.fecha_nacimiento = fecha_nacimiento;
 		this.sexo = sexo;
 		this.altura = altura;
 		this.peso = peso;
-		this.aficiones = aficiones;
+		this.aficiones=Arrays.copyOf(aficiones, aficiones.length);
 	}
 	
 	public String toString() {
@@ -88,12 +99,12 @@ class persona{
 		String icn = Integer.toString(Math.round(calc));
 		short calcImc = Short.parseShort(icn) ;
 		if (calcImc<minIMC) {
-			imc=-1;
+			imc=infPeso;
 		}else {
 			if(calcImc>=minIMC && calcImc<=maxIMC) {
-				imc=0;
+				imc=buePeso;
 			}else
-				imc=1;
+				imc=masPeso;
 		}
 		return imc;
 	}
@@ -111,17 +122,18 @@ class persona{
 		return flag;
 	}
 	
-	public void comprobarSexo(char sexo) {
-		if(sexo!='H' || sexo!=DEFAULTSEXO) {
-			this.sexo = DEFAULTSEXO;
+	public static char comprobarSexo(char sexo) {
+		sexo = Character.toUpperCase(sexo);
+		if(sexo!='H') {
+			return  DEFAULTSEXO;
 		}else
-			this.sexo=sexo;
+			return sexo;
 	}
 	
-	public void generarIdentificador() {
+	private int generarIdentificador() {
 		Random r = new Random();
 		int newID = 100000 + r.nextInt(900000);
-		this.id = newID;
+		return newID;
 	}
 	
 }
@@ -129,13 +141,13 @@ class persona{
 class Estatico {
 	static String mensajePeso(persona objeto) {
 		String mensaje = "";
-		if (objeto.calculoImc()==-1) {
+		if (objeto.calculoImc()==persona.infPeso) {
 			mensaje="Se encuentra por debajo de su peso ideal";
 		}else {
-			if (objeto.calculoImc()==0) {
+			if (objeto.calculoImc()==persona.buePeso) {
 				mensaje="Se encuentra en su peso ideal";
 			}else {
-				if (objeto.calculoImc()==1) {
+				if (objeto.calculoImc()==persona.masPeso) {
 					mensaje="Se encuentra por encima de su peso ideal";
 				}
 			}
@@ -171,26 +183,31 @@ class noEstatico{
 
 public class entrega_5 {
 	public static void main(String[] args) {
-		String nombre;
+		String nombre="",input="";
 		char sexo;
 		float altura;
 		GregorianCalendar fecha_nacimiento = new GregorianCalendar();
 		float peso;
-		int anyo = 0, mes = 0 , dia = 0;
-		String [] aficiones = new String[5];
+		int anyo = 0, mes = 0 , dia = 0,i=0;
+		String [] aficiones = new String[1];
 		Scanner sc = new Scanner(System.in);
 		Arrays.fill(aficiones, "");
 		System.out.println("Introduce el Nombre");
 		nombre = sc.nextLine();
 		System.out.println("Introduce el Sexo");
-		sexo = sc.nextLine().charAt(0);
+		sexo = persona.comprobarSexo(sc.nextLine().charAt(0));
 		System.out.println("Introduce la altura");
 		altura=Float.parseFloat(sc.nextLine());
 		System.out.println("Introduce el peso");
 		peso=Float.parseFloat(sc.nextLine());
 		System.out.println("Introduce tus aficiones");
-		for (short i = 0;i<aficiones.length;++i) {
-			aficiones[i]=sc.nextLine();
+		input=sc.nextLine();
+		i=1;
+		while(input!="") {
+			aficiones= Arrays.copyOf(aficiones, i);
+			aficiones[i-1]=input;
+			++i;
+			input=sc.nextLine();
 		}
 		System.out.println("Introduce el año de nacimiento");
 		anyo=Integer.parseInt(sc.nextLine());
@@ -223,7 +240,7 @@ public class entrega_5 {
 	static void compNulos(persona obj) {
 		Scanner sc = new Scanner(System.in);
 		GregorianCalendar fecha_nacimiento1 = new GregorianCalendar();
-		String [] aficiones = new String[5];
+		String [] aficiones = new String[1];
 		if(obj.getNombre()==null) {
 			System.out.println("No se encontro el nombre, introduzca uno:");
 			obj.setNombre(sc.nextLine());
@@ -236,22 +253,23 @@ public class entrega_5 {
 			System.out.println("No se encontro el peso, introduzca uno:");
 			obj.setPeso(Float.parseFloat(sc.nextLine()));
 		}
-		if (obj.getId()==0) {
-			obj.generarIdentificador();
-		}
 		if (obj.getFecha_nacimiento().get(GregorianCalendar.YEAR)==fecha_nacimiento1.get(GregorianCalendar.YEAR)) {
 			System.out.println("No se encontro fecha de nacimiento por favor introduzcala");
 			fecha_nacimiento1= new GregorianCalendar(Integer.parseInt(sc.nextLine()),Integer.parseInt(sc.nextLine())-1,Integer.parseInt(sc.nextLine()));
 			obj.setFecha_nacimiento(fecha_nacimiento1);
 		}
-		if(obj.getAficiones().toString()==null) {
-			System.out.println("No se encontraron aficiones, introduzca aficiones");
-			for (short i = 0;i<obj.getAficiones().length;++i) {
-				aficiones[i]=sc.nextLine();
+		if (obj.getAficiones(0) == "") {
+			System.out.println("Introduce tus aficiones");
+			String input=sc.nextLine();
+			int i=1;
+			while(input!="") {
+				aficiones= Arrays.copyOf(aficiones, i);
+				aficiones[i-1]=input;
+				++i;
+				input=sc.nextLine();
 			}
 			obj.setAficiones(aficiones);
 		}
-		obj.comprobarSexo(obj.getSexo());
 	}
 	static void mensajeInformacion(persona objeto) {
 		System.out.println(objeto);
