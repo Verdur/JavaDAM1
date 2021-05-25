@@ -27,17 +27,15 @@ class entregaJunit {
 	}
 	@Test
 	void testNo() {
-		assertEquals(false, new metodoJunit.metodos(false,false).compruebaNo());
-		assertEquals(true, new metodoJunit.metodos(true,true).compruebaNo());
-		assertEquals(true, new metodoJunit.metodos(true,false).compruebaNo());
-		assertEquals(true, new metodoJunit.metodos(false,true).compruebaNo());
+		assertEquals(true, new metodoJunit.metodos(false,false).compruebaNo());
+		assertEquals(false, new metodoJunit.metodos(true,true).compruebaNo());
 	}
 
 }
 
 class metodoJunitTest extends junit.framework.TestCase{
     	
-        public void testY() {
+       public void testY() {
         assertEquals(true, new metodoJunit.metodos(true,true).compruebaY());
     	assertEquals(false, new metodoJunit.metodos(false,false).compruebaY());
     	assertEquals(false, new metodoJunit.metodos(true,false).compruebaY());
@@ -52,10 +50,8 @@ class metodoJunitTest extends junit.framework.TestCase{
 	}
 
     	public void testNo() {
-    	assertEquals(false, new metodoJunit.metodos(false,false).compruebaNo());
-		assertEquals(true, new metodoJunit.metodos(true,true).compruebaNo());
-		assertEquals(true, new metodoJunit.metodos(true,false).compruebaNo());
-		assertEquals(true, new metodoJunit.metodos(false,true).compruebaNo());
+    		assertEquals(true, new metodoJunit.metodos(false,false).compruebaNo());
+    		assertEquals(false, new metodoJunit.metodos(true,true).compruebaNo());
 	}
 
 }

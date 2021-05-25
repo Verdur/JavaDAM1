@@ -9,29 +9,14 @@ public static class metodos{
 		this.flag2 = flag2;
 	}
 	public boolean compruebaY() {
-		if (flag1 == true && flag2 == true) {
-			return true;
-		}else 
-			return false;
+		return flag1 && flag2;
 	}
 	public boolean compruebaO() {
-		if (flag1 == true || flag2 == true) {
-			return true;
-		}else 
-			return false;
+		return flag1 || flag2;
 		
 	}
 	public boolean compruebaNo() {
-		if (flag1 != false) {
-			return true;
-		}else {
-			if (flag2 != false) {
-				return true;
-			}else
-				return false;
-		}
-			
-		
+		return !flag1;	
 	}
 }
 }
